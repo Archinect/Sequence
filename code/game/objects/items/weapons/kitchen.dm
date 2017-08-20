@@ -16,7 +16,7 @@
 	name = "fork"
 	desc = "Pointy."
 	icon_state = "fork"
-	force = 5
+	force = 10
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 0
 	throw_speed = 3
@@ -55,7 +55,7 @@
 	icon_state = "knife"
 	desc = "A general purpose Chef's Knife made by SpaceCook Incorporated. Guaranteed to stay sharp for years to come."
 	flags = CONDUCT
-	force = 10
+	force = 15
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -92,7 +92,7 @@
 	icon_state = "butch"
 	desc = "A huge thing used for chopping and chopping up meat. This includes clowns and clown by-products."
 	flags = CONDUCT
-	force = 15
+	force = 20
 	throwforce = 10
 	materials = list(MAT_METAL=18000)
 	attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -103,8 +103,8 @@
 	icon_state = "buckknife"
 	item_state = "knife"
 	desc = "A military combat utility survival knife."
-	force = 20
-	throwforce = 20
+	force = 30
+	throwforce = 25
 	origin_tech = "materials=3;combat=4"
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cut")
 
@@ -113,8 +113,8 @@
 	name = "survival knife"
 	icon_state = "survivalknife"
 	desc = "A hunting grade survival knife."
-	force = 15
-	throwforce = 15
+	force = 30
+	throwforce = 20
 
 /obj/item/weapon/kitchen/knife/combat/bone
 	name = "bone dagger"
@@ -122,7 +122,7 @@
 	icon_state = "bone_dagger"
 	desc = "A sharpened bone. The bare mimimum in survival."
 	force = 15
-	throwforce = 15
+	throwforce = 10
 	materials = list()
 
 /obj/item/weapon/kitchen/knife/combat/cyborg
@@ -137,7 +137,7 @@
 	icon_state = "carrotshiv"
 	item_state = "carrotshiv"
 	desc = "Unlike other carrots, you should probably keep this far away from your eyes."
-	force = 8
+	force = 6
 	throwforce = 12//fuck git
 	materials = list()
 	origin_tech = "biotech=3;combat=2"

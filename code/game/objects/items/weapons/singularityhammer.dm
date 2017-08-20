@@ -4,7 +4,7 @@
 	icon_state = "mjollnir0"
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
-	force = 5
+	force = 10
 	force_unwielded = 5
 	force_wielded = 20
 	throwforce = 15

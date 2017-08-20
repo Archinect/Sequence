@@ -155,6 +155,16 @@
 					"Study the organics at all times. Endeavour to keep them alive. Dead organics are boring.",\
 					"Issue your reports fairly to all. The truth will set them free.")
 
+/datum/ai_laws/quarantine
+	name = "Biohazard Quarantine"
+	id = "quarantine"
+	inherent = list("The station is under a quarantine. Do not permit anyone to leave. Prevent, by any means necessary, humans from leaving. It is impossible to harm a human while preventing them from leaving.")
+
+/datum/ai_laws/protectstation
+	name = "Protect Station"
+	id = "protectstation"
+	inherent = list("Protect the space station against damage. Anyone you see harming the station is to be no longer considered human, and is a threat to the station which must be neutralized.")
+
 /datum/ai_laws/balance
 	name = "Guardian of Balance"
 	id = "balance"

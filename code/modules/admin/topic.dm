@@ -1703,6 +1703,15 @@
 		H << "<span class='adminnotice'>Your prayers have been answered!! You received the <b>best cookie</b>!</span>"
 		H << 'sound/effects/pray_chaplain.ogg'
 
+	else if(href_list["adminblessing"])
+		if(!check_rights(R_ADMIN|R_FUN))
+			return
+		var/mob/user = locate(href_list["adminblessing"])
+		switch (user.Blessed)
+		log_admin("[key_name(user)] received a blessing from [key_name(src.owner)].")
+		message_admins("[key_name(user)] received a blessing from [key_name(src.owner)].")
+		user << "You feel how power fills you"
+
 	else if(href_list["adminsmite"])
 		if(!check_rights(R_ADMIN|R_FUN))
 			return

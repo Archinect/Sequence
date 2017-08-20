@@ -25,10 +25,10 @@
 	var/raised = 0			//if the turret cover is "open" and the turret is raised
 	var/raising= 0			//if the turret is currently opening or closing its cover
 
-	obj_integrity = 160			//the turret's health
-	max_integrity = 160
+	obj_integrity = 200			//the turret's health
+	max_integrity = 200
 	integrity_failure = 80
-	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0, fire = 90, acid = 90)
+	armor = list(melee = 40, bullet = 20, laser = 45, energy = 45, bomb = 30, bio = 2, rad = 10, fire = 45, acid = 30)
 
 	var/locked = 1			//if the turret's behaviour control access is locked
 	var/controllock = 0		//if the turret responds to control panels
@@ -51,7 +51,7 @@
 	var/obj/machinery/porta_turret_cover/cover = null	//the cover that is covering this turret
 
 	var/last_fired = 0		//world.time the turret last fired
-	var/shot_delay = 15		//ticks until next shot (1.5 ?)
+	var/shot_delay = 10		//ticks until next shot (1.5 ?)
 
 
 	var/check_records = 1	//checks if it can use the security records

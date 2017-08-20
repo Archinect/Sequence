@@ -3,10 +3,10 @@
 	desc = "A rod of pure obsidian, its very presence disrupts and dampens the powers of Nar-Sie's followers."
 	icon_state = "nullrod"
 	item_state = "nullrod"
-	force = 18
+	force = 8
 	throw_speed = 3
 	throw_range = 4
-	throwforce = 10
+	throwforce = 5
 	w_class = WEIGHT_CLASS_TINY
 	var/reskinned = FALSE
 
@@ -17,8 +17,10 @@
 /obj/item/weapon/nullrod/attack_self(mob/user)
 	if(reskinned)
 		return
-	if(user.mind && (user.mind.isholy))
+	if(user.mind && (user.mind.isholy) && user.Blessed)
 		reskin_holy_weapon(user)
+	if(!user.Blessed)
+		user << "You do not feel power in your hands..."
 
 /obj/item/weapon/nullrod/proc/reskin_holy_weapon(mob/M)
 	var/obj/item/weapon/nullrod/holy_weapon
@@ -57,6 +59,7 @@
 	item_state = "disintegrate"
 	name = "god hand"
 	desc = "This hand of yours glows with an awesome power!"
+	force = 25
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/sear.ogg'
@@ -69,7 +72,7 @@
 	name = "red holy staff"
 	desc = "It has a mysterious, protective aura."
 	w_class = WEIGHT_CLASS_HUGE
-	force = 5
+	force = 15
 	slot_flags = SLOT_BACK
 	block_chance = 50
 	var/shield_icon = "shield-red"
@@ -90,9 +93,10 @@
 	item_state = "claymore"
 	name = "holy claymore"
 	desc = "A weapon fit for a crusade!"
+	force = 25
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = SLOT_BACK|SLOT_BELT
-	block_chance = 30
+	block_chance = 35
 	sharpness = IS_SHARP
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -129,6 +133,7 @@
 /obj/item/weapon/nullrod/claymore/katana
 	name = "hanzo steel"
 	desc = "Capable of cutting clean through a holy claymore."
+	block_chance = 30
 	icon_state = "katana"
 	item_state = "katana"
 	slot_flags = SLOT_BELT | SLOT_BACK
@@ -170,7 +175,7 @@
 	icon_state = "sord"
 	item_state = "sord"
 	slot_flags = SLOT_BELT
-	force = 4.13
+	force = 25
 	throwforce = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -181,6 +186,7 @@
 	name = "reaper scythe"
 	desc = "Ask not for whom the bell tolls..."
 	w_class = WEIGHT_CLASS_BULKY
+	force = 20
 	armour_penetration = 35
 	slot_flags = SLOT_BACK
 	sharpness = IS_SHARP
@@ -251,6 +257,7 @@
 	item_state = "hammeron"
 	name = "relic war hammer"
 	desc = "This war hammer cost the chaplain forty thousand space dollars."
+	force = 30
 	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_HUGE
 	attack_verb = list("smashed", "bashed", "hammered", "crunched")
@@ -260,6 +267,7 @@
 	desc = "Good? Bad? You're the guy with the chainsaw hand."
 	icon_state = "chainsaw_on"
 	item_state = "mounted_chainsaw"
+	force = 30
 	w_class = WEIGHT_CLASS_HUGE
 	flags = NODROP | ABSTRACT
 	sharpness = IS_SHARP
@@ -273,6 +281,7 @@
 	name = "clown dagger"
 	desc = "Used for absolutely hilarious sacrifices."
 	hitsound = 'sound/items/bikehorn.ogg'
+	force = 10
 	sharpness = IS_SHARP
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
@@ -281,6 +290,7 @@
 	desc = "What a terrible night to be on Space Station 13."
 	icon_state = "chain"
 	item_state = "chain"
+	force = 30
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed")
 	hitsound = 'sound/weapons/chainhit.ogg'
@@ -295,7 +305,7 @@
 	force = 0
 	throw_speed = 4
 	throw_range = 7
-	throwforce = 30
+	throwforce = 45
 	sharpness = IS_SHARP
 	attack_verb = list("enlightened", "redpilled")
 
@@ -304,6 +314,7 @@
 	desc = "Particularly twisted dieties grant gifts of dubious value."
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
+	force = 20
 	flags = ABSTRACT | NODROP
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = IS_SHARP
@@ -314,7 +325,7 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "carpplushie"
 	item_state = "carp_plushie"
-	force = 15
+	force = 10
 	attack_verb = list("bitten", "eaten", "fin slapped")
 	hitsound = 'sound/weapons/bite.ogg'
 	var/used_blessing = FALSE
@@ -331,7 +342,7 @@
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, it is now used to harass the clown."
 	w_class = WEIGHT_CLASS_BULKY
 	force = 15
-	block_chance = 40
+	block_chance = 50
 	slot_flags = SLOT_BACK
 	sharpness = IS_BLUNT
 	hitsound = "swing_hit"
@@ -348,6 +359,7 @@
 	desc = "They say fear is the true mind killer, but stabbing them in the head works too. Honour compels you to not sheathe it once drawn."
 	sharpness = IS_SHARP
 	slot_flags = null
+	force = 20
 	flags = HANDSLOW
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -359,6 +371,7 @@
 	desc = "Holding this makes you look absolutely devilish."
 	attack_verb = list("poked", "impaled", "pierced", "jabbed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	force = 20
 	sharpness = IS_SHARP
 
 /obj/item/weapon/nullrod/tribal_knife/New()

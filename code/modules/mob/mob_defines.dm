@@ -8,6 +8,7 @@
 	var/datum/mind/mind
 	var/list/datum/action/actions = list()
 
+
 	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
 
 
@@ -35,6 +36,7 @@
 	var/atom/movable/pulling = null
 	var/grab_state = 0
 
+	var/Blessed
 	var/next_move = null
 	var/notransform = null	//Carbon
 	var/eye_blind = 0		//Carbon

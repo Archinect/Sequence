@@ -155,6 +155,10 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/build_path = null
 
+/obj/item/weapon/circuitboard/computer/upload
+	name = "Upload console (Computer Board)"
+	build_path = /obj/machinery/computer/upload
+	origin_tech = "programming=5;engineering=4"
 /obj/item/weapon/circuitboard/computer/turbine_computer
 	name = "Turbine Computer (Computer Board)"
 	build_path = /obj/machinery/computer/turbine_computer
@@ -179,14 +183,6 @@
 	name = "circuit board (Aux Mining Base Construction Console)"
 	build_path = /obj/machinery/computer/camera_advanced/base_construction
 	origin_tech = "programming=3;engineering=3"
-/obj/item/weapon/circuitboard/computer/aiupload
-	name = "AI Upload (Computer Board)"
-	build_path = /obj/machinery/computer/upload/ai
-	origin_tech = "programming=4;engineering=4"
-/obj/item/weapon/circuitboard/computer/borgupload
-	name = "Cyborg Upload (Computer Board)"
-	build_path = /obj/machinery/computer/upload/borg
-	origin_tech = "programming=4;engineering=4"
 /obj/item/weapon/circuitboard/computer/med_data
 	name = "Medical Records Console (Computer Board)"
 	build_path = /obj/machinery/computer/med_data

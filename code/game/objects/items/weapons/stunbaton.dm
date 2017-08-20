@@ -11,7 +11,7 @@
 	attack_verb = list("beaten")
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 50, bio = 0, rad = 0, fire = 80, acid = 80)
 
-	var/stunforce = 7
+	var/stunforce = 10
 	var/status = 0
 	var/obj/item/weapon/stock_parts/cell/high/bcell = null
 	var/hitcost = 1000

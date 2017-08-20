@@ -36,20 +36,12 @@
 	build_path = /obj/item/weapon/circuitboard/computer/xenobiology
 	category = list("Computer Boards")
 
-/datum/design/board/aiupload
-	name = "Computer Design (AI Upload)"
-	desc = "Allows for the construction of circuit boards used to build an AI Upload Console."
-	id = "aiupload"
+/datum/design/board/upload
+	name = "Computer Design (Upload console)"
+	desc = "Allows for the construction of circuit boards used to build an Upload Console."
+	id = "upload"
 	req_tech = list("programming" = 5, "engineering" = 4)
-	build_path = /obj/item/weapon/circuitboard/computer/aiupload
-	category = list("Computer Boards")
-
-/datum/design/board/borgupload
-	name = "Computer Design (Cyborg Upload)"
-	desc = "Allows for the construction of circuit boards used to build a Cyborg Upload Console."
-	id = "borgupload"
-	req_tech = list("programming" = 5, "engineering" = 4)
-	build_path = /obj/item/weapon/circuitboard/computer/borgupload
+	build_path = /obj/item/weapon/circuitboard/computer/upload
 	category = list("Computer Boards")
 
 /datum/design/board/med_data

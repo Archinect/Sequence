@@ -252,6 +252,18 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		. += A
 	return .
 
+//returns a list of silicons
+proc/active_silicons(check_mind=0)
+	. = list()
+	for(var/mob/living/silicon/A in living_mob_list)
+		if(A.stat == DEAD)
+			continue
+		if(check_mind)
+			if(!A.mind)
+				continue
+		. += A
+	return .
+
 //Find an active ai with the least borgs. VERBOSE PROCNAME HUH!
 /proc/select_active_ai_with_fewest_borgs()
 	var/mob/living/silicon/ai/selected
