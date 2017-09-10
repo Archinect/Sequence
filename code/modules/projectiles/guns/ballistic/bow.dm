@@ -76,8 +76,8 @@
 	name = "arrow"
 	icon_state = "arrow"
 	ammo_type = /obj/item/ammo_casing/caseless/arrow
-	range = 10
-	damage = 25
+	range = 15
+	damage = 35
 	damage_type = BRUTE
 
 /obj/item/ammo_casing/caseless/arrow

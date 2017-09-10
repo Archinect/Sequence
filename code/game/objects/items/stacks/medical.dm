@@ -106,9 +106,9 @@
 	singular_name = "bruise pack"
 	desc = "A theraputic gel pack and bandages designed to treat blunt-force trauma."
 	icon_state = "brutepack"
-	heal_brute = 40
+	heal_brute = 10
 	origin_tech = "biotech=2"
-	self_delay = 20
+	self_delay = 40
 
 /obj/item/stack/medical/gauze
 	name = "medical gauze"
@@ -116,19 +116,21 @@
 	gender = PLURAL
 	singular_name = "medical gauze"
 	icon_state = "gauze"
-	stop_bleeding = 1800
-	self_delay = 20
+	stop_bleeding = 800
+	self_delay = 40
 
 /obj/item/stack/medical/gauze/improvised
 	name = "improvised gauze"
 	singular_name = "improvised gauze"
 	desc = "A roll of cloth roughly cut from something that can stop bleeding, but does not heal wounds."
-	stop_bleeding = 900
+	stop_bleeding = 350
+	self_delay = 45
 
 /obj/item/stack/medical/gauze/cyborg
 	materials = list()
 	is_cyborg = 1
 	cost = 250
+	self_delay = 25
 
 /obj/item/stack/medical/ointment
 	name = "ointment"
@@ -136,6 +138,6 @@
 	gender = PLURAL
 	singular_name = "ointment"
 	icon_state = "ointment"
-	heal_burn = 40
+	heal_burn = 10
 	origin_tech = "biotech=2"
-	self_delay = 20
+	self_delay = 30
