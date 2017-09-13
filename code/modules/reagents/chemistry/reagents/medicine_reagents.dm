@@ -19,6 +19,12 @@
 	id = "leporazine"
 	description = "Leporazine will effectively regulate a patient's body temperature, ensuring it never leaves safe levels."
 	color = "#C8A5DC" // rgb: 200, 165, 220
+	overdose_threshold = 50
+
+/datum/reagent/medicine/leporazine/overdose_process(mob/living/M)
+	M.adjustToxLoss(2, 0)
+	..()
+	. = 1
 
 /datum/reagent/medicine/leporazine/on_mob_life(mob/living/M)
 	if(M.bodytemperature > 310)
@@ -79,6 +85,7 @@
 	id = "synaptizine"
 	description = "Increases resistance to stuns as well as reducing drowsiness and hallucinations."
 	color = "#FF00FF"
+	overdose_threshold = 25
 
 /datum/reagent/medicine/synaptizine/on_mob_life(mob/living/M)
 	M.drowsyness = max(M.drowsyness-5, 0)
@@ -92,6 +99,14 @@
 		M.adjustToxLoss(1, 0)
 		. = 1
 	..()
+
+/datum/reagent/medicine/leporazine/overdose_process(mob/living/M)
+	M.adjustToxLoss(2, 0)
+	M.blur_eyes(3)
+	prob(20)
+		M.blind_eyes(2)
+	..()
+	. = 1
 
 /datum/reagent/medicine/synaphydramine
 	name = "Diphen-Synaptizine"
@@ -111,6 +126,14 @@
 		. = 1
 	..()
 
+/datum/reagent/medicine/synaphydramine/overdose_process(mob/living/M)
+	M.adjustToxLoss(2, 0)
+	M.blur_eyes(1)
+	prob(20)
+		M.blind_eyes(2)
+	..()
+	. = 1
+
 /datum/reagent/medicine/inacusiate
 	name = "Inacusiate"
 	id = "inacusiate"
@@ -120,6 +143,15 @@
 /datum/reagent/medicine/inacusiate/on_mob_life(mob/living/M)
 	M.setEarDamage(0,0)
 	..()
+
+/datum/reagent/medicine/synaphydramine/overdose_process(mob/living/M)
+	M.adjustToxLoss(2, 0)
+	M.blur_eyes(1)
+	prob(20)
+		M.setEarDamage(20,0)
+	..()
+	. = 1
+
 
 /datum/reagent/medicine/cryoxadone
 	name = "Cryoxadone"

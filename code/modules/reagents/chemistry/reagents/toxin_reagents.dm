@@ -60,7 +60,7 @@
 	taste_description = "bitterness"
 	taste_mult = 1.5
 	color = "#8228A0"
-	toxpwr = 3
+	toxpwr = 5
 
 /datum/reagent/toxin/plasma/on_mob_life(mob/living/M)
 	if(holder.has_reagent("epinephrine"))
@@ -150,8 +150,13 @@
 	id = "carpotoxin"
 	description = "A deadly neurotoxin produced by the dreaded spess carp."
 	color = "#003333" // rgb: 0, 51, 51
-	toxpwr = 2
+	toxpwr = 3
 	taste_description = "fish"
+
+/datum/reagent/toxin/carpotoxin/on_mob_life(mob/living/M)
+	M.hallucination += 5
+	M.blur_eyes(2)
+	return ..()
 
 /datum/reagent/toxin/zombiepowder
 	name = "Zombie Powder"
@@ -192,7 +197,7 @@
 	id = "plantbgone"
 	description = "A harmful toxic mixture to kill plantlife. Do not ingest!"
 	color = "#49002E" // rgb: 73, 0, 46
-	toxpwr = 1
+	toxpwr = 2
 	taste_mult = 1
 
 /datum/reagent/toxin/plantbgone/reaction_obj(obj/O, reac_volume)
@@ -224,7 +229,7 @@
 	id = "pestkiller"
 	description = "A harmful toxic mixture to kill pests. Do not ingest!"
 	color = "#4B004B" // rgb: 75, 0, 75
-	toxpwr = 1
+	toxpwr = 2
 
 /datum/reagent/toxin/pestkiller/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(method == VAPOR)
@@ -266,7 +271,7 @@
 	description = "A powerful sedative that induces confusion and drowsiness before putting its target to sleep."
 	reagent_state = SOLID
 	color = "#000067" // rgb: 0, 0, 103
-	toxpwr = 0
+	toxpwr = 0.2
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 
 /datum/reagent/toxin/chloralhydrate/on_mob_life(mob/living/M)
@@ -320,7 +325,7 @@
 	description = "Finely ground coffee beans, used to make coffee."
 	reagent_state = SOLID
 	color = "#5B2E0D" // rgb: 91, 46, 13
-	toxpwr = 0.5
+	toxpwr = 0.2
 
 /datum/reagent/toxin/teapowder
 	name = "Ground Tea Leaves"
@@ -328,14 +333,14 @@
 	description = "Finely shredded tea leaves, used for making tea."
 	reagent_state = SOLID
 	color = "#7F8400" // rgb: 127, 132, 0
-	toxpwr = 0.5
+	toxpwr = 0.2
 
 /datum/reagent/toxin/mutetoxin //the new zombie powder.
 	name = "Mute Toxin"
 	id = "mutetoxin"
 	description = "A nonlethal poison that inhibits speech in its victim."
 	color = "#F0F8FF" // rgb: 240, 248, 255
-	toxpwr = 0
+	toxpwr = 0.2
 	taste_description = "silence"
 
 /datum/reagent/toxin/mutetoxin/on_mob_life(mob/living/carbon/M)
@@ -366,7 +371,7 @@
 	toxpwr = 0
 
 /datum/reagent/toxin/polonium/on_mob_life(mob/living/M)
-	M.radiation += 4
+	M.radiation += 6
 	..()
 
 /datum/reagent/toxin/histamine
