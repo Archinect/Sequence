@@ -1707,7 +1707,10 @@
 		if(!check_rights(R_FUN))
 			return
 		var/mob/user = locate(href_list["adminblessing"])
-		switch(user.Blessed)
+		if(user.Blessed)
+			user.Blessed = 0
+		else
+			user.Blessed = 1
 		log_admin("[key_name(user)] received a blessing from [key_name(src.owner)].")
 		message_admins("[key_name(user)] received a blessing from [key_name(src.owner)].")
 		user << "You feel how power fills you."

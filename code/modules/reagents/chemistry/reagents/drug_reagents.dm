@@ -13,6 +13,7 @@
 
 /datum/reagent/drug/space_drugs/on_mob_life(mob/living/M)
 	M.set_drugginess(15)
+	M.adjustBrainLoss(0.1*REM)
 	if(isturf(M.loc) && !isspaceturf(M.loc))
 		if(M.canmove)
 			if(prob(10)) step(M, pick(cardinal))
@@ -27,6 +28,8 @@
 /datum/reagent/drug/space_drugs/overdose_process(mob/living/M)
 	if(M.hallucination < volume && prob(20))
 		M.hallucination += 5
+	M.adjustToxLoss(1.5*REM, 0)
+	M.adjustBrainLoss(1*REM)
 	..()
 
 /datum/reagent/drug/nicotine
@@ -71,7 +74,6 @@
 /datum/reagent/drug/crank/overdose_process(mob/living/M)
 	M.adjustBrainLoss(2*REM)
 	M.adjustToxLoss(2*REM, 0)
-	M.adjustBruteLoss(2*REM, 0)
 	..()
 	. = 1
 
@@ -150,7 +152,7 @@
 /datum/reagent/drug/methamphetamine
 	name = "Methamphetamine"
 	id = "methamphetamine"
-	description = "Reduces stun times by about 300%, speeds the user up, and allows the user to quickly recover stamina while dealing a small amount of Brain damage. If overdosed the subject will move randomly, laugh randomly, drop items and suffer from Toxin and Brain damage. If addicted the subject will constantly jitter and drool, before becoming dizzy and losing motor control and eventually suffer heavy toxin damage."
+	description = "Reduces stun times by about 200%, and allows the user to quickly recover stamina while dealing a small amount of Brain damage. If overdosed the subject will move randomly, laugh randomly, drop items and suffer from Toxin and Brain damage. If addicted the subject will constantly jitter and drool, before becoming dizzy and losing motor control and eventually suffer heavy toxin damage."
 	reagent_state = LIQUID
 	color = "#FAFAFA"
 	overdose_threshold = 20
@@ -161,11 +163,10 @@
 	var/high_message = pick("You feel hyper.", "You feel like you need to go faster.", "You feel like you can run the world.")
 	if(prob(5))
 		M << "<span class='notice'>[high_message]</span>"
-	M.AdjustParalysis(-2, 0)
-	M.AdjustStunned(-2, 0)
-	M.AdjustWeakened(-2, 0)
-	M.adjustStaminaLoss(-2, 0)
-	M.status_flags |= GOTTAGOREALLYFAST
+	M.AdjustParalysis(-1, 0)
+	M.AdjustStunned(-1, 0)
+	M.AdjustWeakened(-1, 0)
+	M.adjustStaminaLoss(-1, 0)
 	M.Jitter(2)
 	M.adjustBrainLoss(0.25)
 	if(prob(5))

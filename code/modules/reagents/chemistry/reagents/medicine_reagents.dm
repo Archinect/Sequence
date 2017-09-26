@@ -17,20 +17,19 @@
 /datum/reagent/medicine/leporazine
 	name = "Leporazine"
 	id = "leporazine"
-	description = "Leporazine will effectively regulate a patient's body temperature, ensuring it never leaves safe levels."
+	description = "Leporazine will effectively removes from a shock condition slowly removes from paralysis."
 	color = "#C8A5DC" // rgb: 200, 165, 220
-	overdose_threshold = 50
+	overdose_threshold = 35
 
 /datum/reagent/medicine/leporazine/overdose_process(mob/living/M)
-	M.adjustToxLoss(2, 0)
+	M.adjustToxLoss(2*REM, 0)
+	M.adjustBrainLoss(1*REM, 0)
 	..()
 	. = 1
 
 /datum/reagent/medicine/leporazine/on_mob_life(mob/living/M)
-	if(M.bodytemperature > 310)
-		M.bodytemperature = max(310, M.bodytemperature - (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
-	else if(M.bodytemperature < 311)
-		M.bodytemperature = min(310, M.bodytemperature + (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	M.AdjustStunned(-2*REM, 0)
+	M.AdjustParalysis(-0,5*REM, 0)
 	..()
 
 /datum/reagent/medicine/adminordrazine //An OP chemical for admins
@@ -100,13 +99,12 @@
 		. = 1
 	..()
 
-/datum/reagent/medicine/leporazine/overdose_process(mob/living/M)
+/datum/reagent/medicine/synaptizine/overdose_process(mob/living/M)
+	if(prob(20))
+		M.blind_eyes(2)
 	M.adjustToxLoss(2, 0)
 	M.blur_eyes(3)
-	prob(20)
-		M.blind_eyes(2)
 	..()
-	. = 1
 
 /datum/reagent/medicine/synaphydramine
 	name = "Diphen-Synaptizine"
@@ -127,28 +125,28 @@
 	..()
 
 /datum/reagent/medicine/synaphydramine/overdose_process(mob/living/M)
-	M.adjustToxLoss(2, 0)
-	M.blur_eyes(1)
-	prob(20)
+	if(prob(20))
 		M.blind_eyes(2)
+	M.adjustToxLoss(3, 0)
+	M.blur_eyes(1)
 	..()
 	. = 1
 
 /datum/reagent/medicine/inacusiate
 	name = "Inacusiate"
 	id = "inacusiate"
-	description = "Instantly restores all hearing to the patient, but does not cure deafness."
+	description = "Restores all hearing to the patient, but does not cure deafness."
 	color = "#6600FF" // rgb: 100, 165, 255
 
 /datum/reagent/medicine/inacusiate/on_mob_life(mob/living/M)
-	M.setEarDamage(0,0)
+	M.adjustEarDamage(-2*REM,0)
 	..()
 
-/datum/reagent/medicine/synaphydramine/overdose_process(mob/living/M)
+/datum/reagent/medicine/inacusiate/overdose_process(mob/living/M)
+	if(prob(20))
+		M.adjustEarDamage(0,10)
 	M.adjustToxLoss(2, 0)
 	M.blur_eyes(1)
-	prob(20)
-		M.setEarDamage(20,0)
 	..()
 	. = 1
 
@@ -219,6 +217,13 @@
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 
+/datum/reagent/medicine/spaceacillin/overdose_process(mob/living/M)
+	M.adjustToxLoss(1, 0)
+	M.Dizzy(2)
+	M.Jitter(2)
+	..()
+	. = 1
+
 //Goon Chems. Ported mainly from Goonstation. Easily mixable (or not so easily) and provide a variety of effects.
 /datum/reagent/medicine/silver_sulfadiazine
 	name = "Silver Sulfadiazine"
@@ -245,16 +250,16 @@
 	..()
 	. = 1
 
-/datum/reagent/medicine/oxandrolone
-	name = "Oxandrolone"
+/datum/reagent/medicine/oxandromine
+	name = "Oxandromine"
 	id = "oxandrolone"
-	description = "Stimulates the healing of severe burns. Extremely rapidly heals severe burns and slowly heals minor ones. Overdose will worsen existing burns."
+	description = "Stimulates the healing of severe burns. Extremely rapidly heals severe burns and slowly heals minor ones."
 	reagent_state = LIQUID
 	color = "#f7ffa5"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 25
 
-/datum/reagent/medicine/oxandrolone/on_mob_life(mob/living/M)
+/datum/reagent/medicine/oxandromine/on_mob_life(mob/living/M)
 	if(M.getFireLoss() > 50)
 		M.adjustFireLoss(-4*REM, 0) //Twice as effective as silver sulfadiazine for severe burns
 	else
@@ -262,10 +267,10 @@
 	..()
 	. = 1
 
-/datum/reagent/medicine/oxandrolone/overdose_process(mob/living/M)
-	if(M.getFireLoss()) //It only makes existing burns worse
-		M.adjustFireLoss(4.5*REM, 0) // it's going to be healing either 4 or 0.5
-		. = 1
+/datum/reagent/medicine/oxandromine/overdose_process(mob/living/M)
+	M.adjustToxLoss(1, 0)
+	M.Dizzy(2)
+	M.Jitter(2)
 	..()
 
 /datum/reagent/medicine/styptic_powder
@@ -313,6 +318,8 @@
 		. = 1
 	..()
 
+
+
 /datum/reagent/medicine/salglu_solution/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(ishuman(M) && method == INJECT)
 		var/mob/living/carbon/human/H = M
@@ -358,6 +365,14 @@
 				M << "<span class='danger'>You feel your wounds fade away to nothing!</span>" //It's a painkiller, after all
 	..()
 
+/datum/reagent/medicine/mine_salve/overdose_process(mob/living/M)
+	M.adjustToxLoss(1, 0)
+	M.Dizzy(2)
+	M.Jitter(4)
+	M.adjust_blurriness(3)
+	..()
+
+
 /datum/reagent/medicine/mine_salve/on_mob_delete(mob/living/M)
 	if(iscarbon(M))
 		var/mob/living/carbon/N = M
@@ -392,7 +407,7 @@
 	taste_description = "ash"
 
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/M)
-	M.adjustToxLoss(-2*REM, 0)
+	M.adjustToxLoss(-0.2*REM, 0)
 	. = 1
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
@@ -417,15 +432,14 @@
 	. = 1
 
 /datum/reagent/medicine/omnizine/overdose_process(mob/living/M)
-	M.adjustToxLoss(1.5*REM, 0)
-	M.adjustOxyLoss(1.5*REM, 0)
-	M.adjustBruteLoss(1.5*REM, 0)
-	M.adjustFireLoss(1.5*REM, 0)
+	M.adjustToxLoss(1, 0)
+	M.Dizzy(2)
+	M.adjust_blurriness(3)
 	..()
 	. = 1
 
-/datum/reagent/medicine/calomel
-	name = "Calomel"
+/datum/reagent/medicine/calomerel
+	name = "Calomerel"
 	id = "calomel"
 	description = "Quickly purges the body of all chemicals. Toxin damage is dealt if the patient is in good condition."
 	reagent_state = LIQUID
@@ -433,7 +447,7 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "acid"
 
-/datum/reagent/medicine/calomel/on_mob_life(mob/living/M)
+/datum/reagent/medicine/calomerel/on_mob_life(mob/living/M)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
 			M.reagents.remove_reagent(R.id,2.5)
@@ -442,17 +456,30 @@
 		. = 1
 	..()
 
+/datum/reagent/medicine/calomerel/overdose_process(mob/living/M)
+	M.adjustToxLoss(2, 0)
+	M.Jitter(4)
+	M.adjust_blurriness(2)
+	..()
+
 /datum/reagent/medicine/potass_iodide
 	name = "Potassium Iodide"
 	id = "potass_iodide"
-	description = "Efficiently restores low radiation damage."
+	description = "Restores low radiation damage."
 	reagent_state = LIQUID
 	color = "#14FF3C"
 	metabolization_rate = 2 * REAGENTS_METABOLISM
 
 /datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/M)
 	if(M.radiation > 0)
-		M.radiation--
+		if(prob(50))
+			M.radiation--
+	..()
+
+/datum/reagent/medicine/potass_iodide/overdose_process(mob/living/M)
+	M.adjustToxLoss(0.3, 0)
+	M.adjust_blurriness(2)
+	M.AdjustStunned(3)
 	..()
 
 /datum/reagent/medicine/pen_acid
@@ -474,6 +501,11 @@
 			M.reagents.remove_reagent(R.id,2)
 	..()
 	. = 1
+
+/datum/reagent/medicine/pen_acid/overdose_process(mob/living/M)
+	M.adjustToxLoss(3, 0)
+	M.adjust_blurriness(2)
+	..()
 
 /datum/reagent/medicine/sal_acid
 	name = "Salicyclic Acid"
@@ -502,27 +534,33 @@
 /datum/reagent/medicine/salbutamol
 	name = "Salbutamol"
 	id = "salbutamol"
-	description = "Rapidly restores oxygen deprivation as well as preventing more of it to an extent."
+	description = "Restores oxygen deprivation, and also partially prevents it."
 	reagent_state = LIQUID
 	color = "#00FFFF"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 
 /datum/reagent/medicine/salbutamol/on_mob_life(mob/living/M)
-	M.adjustOxyLoss(-3*REM, 0)
+	M.adjustOxyLoss(-2*REM, 0)
 	if(M.losebreath >= 4)
-		M.losebreath -= 2
+		if(prob(50))
+			M.losebreath -= 1
 	..()
 	. = 1
 
-/datum/reagent/medicine/perfluorodecalin
-	name = "Perfluorodecalin"
+/datum/reagent/medicine/salbutamol/overdose_process(mob/living/M)
+	M.adjustToxLoss(2, 0)
+	M.adjust_blurriness(3)
+	..()
+
+/datum/reagent/medicine/Experfluorodecalin
+	name = "Experfluorodecalin"
 	id = "perfluorodecalin"
 	description = "Extremely rapidly restores oxygen deprivation, but inhibits speech. May also heal small amounts of bruising and burns."
 	reagent_state = LIQUID
 	color = "#FF6464"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 
-/datum/reagent/medicine/perfluorodecalin/on_mob_life(mob/living/carbon/human/M)
+/datum/reagent/medicine/Experfluorodecalin/on_mob_life(mob/living/carbon/human/M)
 	M.adjustOxyLoss(-12*REM, 0)
 	M.silent = max(M.silent, 5)
 	if(prob(33))
@@ -530,6 +568,11 @@
 		M.adjustFireLoss(-0.5*REM, 0)
 	..()
 	. = 1
+
+/datum/reagent/medicine/Experfluorodecalin/overdose_process(mob/living/M)
+	M.adjustToxLoss(2, 0)
+	M.adjust_blurriness(3)
+	..()
 
 /datum/reagent/medicine/ephedrine
 	name = "Ephedrine"
@@ -541,18 +584,21 @@
 	overdose_threshold = 45
 	addiction_threshold = 30
 
+
+
 /datum/reagent/medicine/ephedrine/on_mob_life(mob/living/M)
 	M.status_flags |= GOTTAGOFAST
 	M.AdjustParalysis(-1, 0)
 	M.AdjustStunned(-1, 0)
 	M.AdjustWeakened(-1, 0)
 	M.adjustStaminaLoss(-1*REM, 0)
+	M.adjustToxLoss(0.5*REM, 0)
 	..()
 	. = 1
 
 /datum/reagent/medicine/ephedrine/overdose_process(mob/living/M)
 	if(prob(33))
-		M.adjustToxLoss(0.5*REM, 0)
+		M.adjustToxLoss(1.5*REM, 0)
 		M.losebreath++
 		. = 1
 	..()
@@ -598,7 +644,15 @@
 		M.drowsyness += 1
 	M.jitteriness -= 1
 	M.reagents.remove_reagent("histamine",3)
+	M.radiation--
 	..()
+
+/datum/reagent/medicine/diphenhydramine/overdose_process(mob/living/M)
+	M.adjustToxLoss(1, 0)
+	M.adjust_blurriness(2)
+	M.AdjustParalysis(1)
+	..()
+
 
 /datum/reagent/medicine/morphine
 	name = "Morphine"
@@ -618,7 +672,7 @@
 		if(12 to 24)
 			M.drowsyness += 1
 		if(24 to INFINITY)
-			M.Sleeping(2, 0)
+			M.Sleeping(3, 0)
 			. = 1
 	..()
 
@@ -705,58 +759,39 @@
 /datum/reagent/medicine/atropine
 	name = "Atropine"
 	id = "atropine"
-	description = "If a patient is in critical condition, rapidly heals all damage types as well as regulating oxygen in the body. Excellent for stabilizing wounded patients."
+	description = "Effectively reduces tremor and slightly reduces fatigue due to muscle relaxation."
 	reagent_state = LIQUID
 	color = "#000000"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 35
 
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/M)
-	if(M.health < 0)
-		M.adjustToxLoss(-2*REM, 0)
-		M.adjustBruteLoss(-2*REM, 0)
-		M.adjustFireLoss(-2*REM, 0)
-		M.adjustOxyLoss(-5*REM, 0)
-		. = 1
-	M.losebreath = 0
-	if(prob(20))
-		M.Dizzy(5)
-		M.Jitter(5)
+	M.Jitter(0)
+	M.adjustStaminaLoss(-1*REM, 0)
 	..()
 
 /datum/reagent/medicine/atropine/overdose_process(mob/living/M)
 	M.adjustToxLoss(0.5*REM, 0)
 	. = 1
-	M.Dizzy(1)
-	M.Jitter(1)
+	M.Dizzy(2)
+	M.Jitter(3)
 	..()
 
 /datum/reagent/medicine/epinephrine
 	name = "Epinephrine"
 	id = "epinephrine"
-	description = "Minor boost to stun resistance. Slowly heals damage if a patient is in critical condition, as well as regulating oxygen loss. Overdose causes weakness and toxin damage."
+	description = "Minor boost to stun resistance. Effectively reduces fatigue and increases muscle tension. Overdose causes weakness and toxin damage."
 	reagent_state = LIQUID
 	color = "#D2FFFA"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 30
 
 /datum/reagent/medicine/epinephrine/on_mob_life(mob/living/M)
-	if(M.health < 0)
-		M.adjustToxLoss(-0.5*REM, 0)
-		M.adjustBruteLoss(-0.5*REM, 0)
-		M.adjustFireLoss(-0.5*REM, 0)
-	if(M.oxyloss > 35)
-		M.setOxyLoss(35, 0)
-	if(M.losebreath >= 4)
-		M.losebreath -= 2
-	if(M.losebreath < 0)
-		M.losebreath = 0
-	M.adjustStaminaLoss(-0.5*REM, 0)
-	. = 1
-	if(prob(20))
+	M.adjustStaminaLoss(-2*REM, 0)
+	M.AdjustWeakened(-1, 0)
+	if(prob(30))
 		M.AdjustParalysis(-1, 0)
 		M.AdjustStunned(-1, 0)
-		M.AdjustWeakened(-1, 0)
 	..()
 
 /datum/reagent/medicine/epinephrine/overdose_process(mob/living/M)
@@ -806,11 +841,11 @@
 /datum/reagent/medicine/mannitol
 	name = "Mannitol"
 	id = "mannitol"
-	description = "Efficiently restores brain damage."
+	description = "Gradually restores brain damage."
 	color = "#DCDCFF"
 
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/M)
-	M.adjustBrainLoss(-3*REM)
+	M.adjustBrainLoss(-1.5*REM)
 	..()
 
 /datum/reagent/medicine/mutadone
@@ -944,7 +979,7 @@
 	. = 1
 
 /datum/reagent/medicine/bicaridine/overdose_process(mob/living/M)
-	M.adjustBruteLoss(4*REM, 0)
+	M.adjustToxLoss(2*REM, 0)
 	..()
 	. = 1
 
@@ -962,47 +997,37 @@
 	. = 1
 
 /datum/reagent/medicine/dexalin/overdose_process(mob/living/M)
-	M.adjustOxyLoss(4*REM, 0)
+	M.adjustToxLoss(2*REM, 0)
 	..()
 	. = 1
 
-/datum/reagent/medicine/kelotane
-	name = "Kelotane"
+/datum/reagent/medicine/Dexpanthenol
+	name = "Dexpanthenol"
 	id = "kelotane"
 	description = "Restores fire damage. Overdose causes it instead."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	overdose_threshold = 30
 
-/datum/reagent/medicine/kelotane/on_mob_life(mob/living/M)
+/datum/reagent/medicine/Dexpanthenol/on_mob_life(mob/living/M)
 	M.adjustFireLoss(-2*REM, 0)
 	..()
 	. = 1
 
-/datum/reagent/medicine/kelotane/overdose_process(mob/living/M)
-	M.adjustFireLoss(4*REM, 0)
-	..()
-	. = 1
-
-/datum/reagent/medicine/antitoxin
-	name = "Anti-Toxin"
+/datum/reagent/medicine/Polyphepan
+	name = "Polyphepan"
 	id = "antitoxin"
-	description = "Heals toxin damage and removes toxins in the bloodstream. Overdose causes toxin damage."
+	description = "Heals toxin damage and removes toxins in the bloodstream."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	overdose_threshold = 30
 	taste_description = "a roll of gauze"
 
-/datum/reagent/medicine/antitoxin/on_mob_life(mob/living/M)
-	M.adjustToxLoss(-2*REM, 0)
+/datum/reagent/medicine/Polyphepan/on_mob_life(mob/living/M)
+	M.adjustToxLoss(-1*REM, 0)
 	for(var/datum/reagent/toxin/R in M.reagents.reagent_list)
 		if(R != src)
 			M.reagents.remove_reagent(R.id,1)
-	..()
-	. = 1
-
-/datum/reagent/medicine/antitoxin/overdose_process(mob/living/M)
-	M.adjustToxLoss(4*REM, 0) // End result is 2 toxin loss taken, because it heals 2 and then removes 4.
 	..()
 	. = 1
 
@@ -1021,28 +1046,20 @@
 /datum/reagent/medicine/tricordrazine
 	name = "Tricordrazine"
 	id = "tricordrazine"
-	description = "Has a high chance to heal all types of damage. Overdose instead causes it."
+	description = "A powerful drug that effectively reduces brain damage, overdose can destroy nervous system."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	overdose_threshold = 30
 	taste_description = "grossness"
 
 /datum/reagent/medicine/tricordrazine/on_mob_life(mob/living/M)
-	if(prob(80))
-		M.adjustBruteLoss(-1*REM, 0)
-		M.adjustFireLoss(-1*REM, 0)
-		M.adjustOxyLoss(-1*REM, 0)
-		M.adjustToxLoss(-1*REM, 0)
-		. = 1
+	M.adjustBrainLoss(-3*REM, 0)
 	..()
 
 /datum/reagent/medicine/tricordrazine/overdose_process(mob/living/M)
-	M.adjustToxLoss(2*REM, 0)
-	M.adjustOxyLoss(2*REM, 0)
-	M.adjustBruteLoss(2*REM, 0)
-	M.adjustFireLoss(2*REM, 0)
+	M.adjustBrainLoss(5*REM, 0)
 	..()
-	. = 1
+
 
 /datum/reagent/medicine/syndicate_nanites //Used exclusively by Syndicate medical cyborgs
 	name = "Restorative Nanites"
