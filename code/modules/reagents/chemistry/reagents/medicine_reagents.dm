@@ -503,7 +503,7 @@
 	. = 1
 
 /datum/reagent/medicine/pen_acid/overdose_process(mob/living/M)
-	M.adjustToxLoss(3, 0)
+	M.adjustToxLoss(2, 0)
 	M.adjust_blurriness(2)
 	..()
 

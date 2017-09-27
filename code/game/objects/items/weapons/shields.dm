@@ -1,7 +1,7 @@
 /obj/item/weapon/shield
 	name = "shield"
 	block_chance = 50
-	armor = list(melee = 50, bullet = 50, laser = 50, energy = 0, bomb = 30, bio = 0, rad = 0, fire = 80, acid = 70)
+	armor = list(melee = 70, bullet = 70, laser = 65, energy = 0, bomb = 30, bio = 0, rad = 0, fire = 80, acid = 70)
 
 /obj/item/weapon/shield/riot
 	name = "riot shield"
@@ -26,6 +26,10 @@
 			user.visible_message("<span class='warning'>[user] bashes [src] with [W]!</span>")
 			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
 			cooldown = world.time
+			var/obj/item/I = src.get_active_held_item()
+			if(prob(20))
+				if(I)
+					src.drop_item()
 	else
 		return ..()
 
