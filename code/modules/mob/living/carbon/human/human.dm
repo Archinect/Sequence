@@ -4,6 +4,7 @@
 	voice_name = "Unknown"
 	icon = 'icons/mob/human.dmi'
 	icon_state = "caucasian_m"
+	var/psyche = 100
 
 
 
@@ -931,3 +932,48 @@
 			riding_datum.unequip_buckle_inhands(M)
 			riding_datum.restore_position(M)
 	. = ..(M)
+
+/mob/living/carbon/human/proc/psyche()
+	var/scaryobj = list()
+	var/charview = view(8,usr.client)
+	var/levelscary
+	var/lastscary
+	if(scaryobj in charview)
+		psyche -= rand(1,5)
+		lastscary = world.time
+	if(psyche >= 50 & lastscary == world.time+2400)
+		psyche+=0.1
+	if(psyche == 100)
+		levelscary = 0
+	if(psyche <= 100 & psyche >=75)
+		levelscary = 1
+	if(psyche <= 75 & psyche >=50)
+		levelscary = 2
+	if(psyche <= 50 & psyche >=25)
+		levelscary = 3
+	if(psyche <= 25 & psyche >=0)
+		levelscary = 4
+	if(levelscary)
+		scary(levelscary)
+
+/mob/living/carbon/human/proc/scary(levelscary)
+	if(prob(levelscary/2))
+		playsound(src, 'sound/items/polaroid1.ogg', level*10, 1)
+	if(prob(levelscary/2))
+		playsound(src, 'sound/items/drink.ogg', level*10, 1)
+	if(prob(levelscary/2))
+		playsound(src, 'sound/items/party_horn.ogg', level*10, 1)
+	if(prob(levelscary/2))
+		playsound(src, 'sound/items/carhorn.ogg', level*10, 1)
+	if(prob(levelscary/2))
+		playsound(src, 'sound/weapons/Gunshot.ogg', level*10, 1)
+	if(prob(levelscary/4))
+		playsound(src, 'sound/spookoween/girlscream.ogg', level*7, 1)
+	if(prob(levelscary/5))
+		playsound(src, 'sound/hallucinations/i_see_you1.ogg', level*7, 1)
+	if(prob(levelscary/3))
+		playsound(src, 'sound/effects/Heart Beat.ogg', level*7, 1)
+	if(prob(levelscary/3))
+		src << "<span class='warning'>[pick("Something appears in your peripheral vision, then winks out.", "You hear a faint whispher with no source.", "Your head aches.")]</span>"
+	if(prob(levelscary/7))
+		new /obj/effect/hallucination/simple/clown/New(src,src,rand(1,3))

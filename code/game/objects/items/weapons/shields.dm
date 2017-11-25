@@ -26,10 +26,10 @@
 			user.visible_message("<span class='warning'>[user] bashes [src] with [W]!</span>")
 			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
 			cooldown = world.time
-			var/obj/item/I = src.get_active_held_item()
+			var/obj/item/I = user.get_active_held_item()
 			if(prob(20))
 				if(I)
-					src.drop_item()
+					user.drop_item()
 	else
 		return ..()
 
