@@ -29,12 +29,12 @@
 
 Admin Observer
 Moderator		= +ADMIN
-Admin Candidate	= +@
-Trial Admin		= +@ +SPAWN +REJUV +VAREDIT +BAN
-Badmin			= +@ +POSSESS +BUILDMODE +SERVER +FUN
-Game Admin		= +@ +STEALTH +SOUNDS +DEBUG
-Game Master		= +EVERYTHING
+Resident 		= +@
+Security Officer = +@ +SPAWN +REJUV +VAREDIT +BAN
+Senior Security Officer	= +@ +POSSESS +BUILDMODE +FUN
+Security Lieutenant		= +@ +STEALTH +SOUNDS +DEBUG +SERVER
+Executive Officer		= +EVERYTHING
 
-Host			= +EVERYTHING
+Host					= +EVERYTHING
 
-Coder			= +DEBUG +VAREDIT +SERVER +SPAWN
+Developer				= +DEBUG +VAREDIT +SERVER +SPAWN
