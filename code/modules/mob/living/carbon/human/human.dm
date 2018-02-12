@@ -7,7 +7,7 @@
 	var/psyche = 100
 	var/levelscar
 	var/lastscary
-	var/scaryobj = list()
+	var/scaryobj = list(/obj/effect/decal/cleanable/blood)
 
 
 /mob/living/carbon/human/dummy
@@ -973,6 +973,3 @@
 		playsound(src, 'sound/effects/Heart Beat.ogg', levelscar*7, 1)
 	if(prob(levelscar/8))
 		src << "<span class='warning'>[pick("Something appears in your peripheral vision, then winks out.", "You hear a faint whispher with no source.")]</span>"
-	if(prob(levelscar/1))
-		spawn handle_hallucinations()
-		hallucination = 2
