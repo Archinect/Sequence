@@ -43353,6 +43353,9 @@
 	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plasteel/caution/corner{
 	dir = 8
 	},
@@ -44887,12 +44890,12 @@
 /turf/open/floor/plating,
 /area/construction)
 "bUL" = (
-/obj/effect/landmark{
-	name = "xeno_spawn";
-	pixel_x = -1
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
+	},
+/obj/machinery/door/airlock/engineering{
+	name = "Construction Area";
+	req_access_txt = "32"
 	},
 /turf/open/floor/plating,
 /area/construction)
@@ -44903,14 +44906,13 @@
 /turf/open/floor/plasteel,
 /area/construction)
 "bUN" = (
-/obj/machinery/door/airlock/engineering{
-	name = "Construction Area";
-	req_access_txt = "32"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/obj/machinery/door/airlock/glass{
+	name = "Public Autolate"
+	},
+/turf/open/floor/plasteel,
 /area/construction)
 "bUO" = (
 /obj/structure/disposalpipe/segment,
@@ -45886,10 +45888,13 @@
 	amount = 5
 	},
 /obj/item/device/flashlight,
+/obj/item/clothing/suit/hazardvest,
 /turf/open/floor/plating,
 /area/construction)
 "bXc" = (
 /obj/structure/table,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/metal/fifty,
 /turf/open/floor/plating,
 /area/construction)
 "bXd" = (
@@ -53679,6 +53684,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/structure/closet/toolcloset,
 /turf/open/floor/plasteel/yellow/side,
 /area/engine/engineering)
 "cnF" = (
@@ -62267,6 +62273,29 @@
 	},
 /turf/open/space,
 /area/space)
+"cEx" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/autolathe,
+/turf/open/floor/plasteel,
+/area/construction)
+"cEy" = (
+/obj/structure/grille,
+/obj/structure/window/fulltile,
+/turf/open/floor/plating,
+/area/construction)
+"cEz" = (
+/obj/structure/grille,
+/obj/structure/window/fulltile,
+/turf/open/floor/plating,
+/area/construction)
+"cEA" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/construction)
 
 (1,1,1) = {"
 aaa
@@ -89922,11 +89951,11 @@ bNT
 bIc
 bQk
 bGZ
-bSs
-bSs
+bSo
+bSo
 bUL
-bVT
-bXa
+bVV
+bSo
 bSo
 bZe
 caj
@@ -90179,10 +90208,10 @@ bNU
 bPc
 bQl
 bGZ
-bSt
+cEx
 bSs
 bUM
-bVT
+cEA
 bXb
 bSo
 bZe
@@ -90437,7 +90466,7 @@ bPd
 bQm
 bGZ
 bSt
-bTv
+bSs
 bUM
 bVU
 bXc
@@ -90693,8 +90722,8 @@ bGZ
 bPe
 bGZ
 bGZ
-bSo
-bSo
+cEy
+cEz
 bUN
 bVV
 bSo
@@ -90951,7 +90980,7 @@ bPf
 bQn
 bRm
 bJD
-bTw
+bJD
 bUO
 bVW
 bXd
