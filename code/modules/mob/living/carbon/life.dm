@@ -309,7 +309,8 @@
 
 	if(sleeping)
 		handle_dreams()
-		AdjustSleeping(-1)
+		if(dreaming != 2) //if seeing horror dream then can't awaken by normal means
+			AdjustSleeping(-1)
 		if(prob(10) && health>HEALTH_THRESHOLD_CRIT)
 			emote("snore")
 
