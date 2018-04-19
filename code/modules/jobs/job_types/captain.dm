@@ -16,6 +16,9 @@ Captain
 
 	outfit = /datum/outfit/job/captain
 
+	psy_vulnerabilities = 0
+	psy_resistances = PSY_FEARTYPE_ALL //brave captain
+
 	access = list() 			//See get_access()
 	minimal_access = list() 	//See get_access()
 

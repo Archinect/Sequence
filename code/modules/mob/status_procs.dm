@@ -114,6 +114,9 @@
 	else if(old_sleeping && !sleeping)
 		clear_alert("asleep")
 		if(updating)
+			var/mob/living/carbon/C = src
+			if(istype(C) && C.dreaming == 2)
+				src << "<span class='danger'>You awake in horror</span>"
 			update_stat()
 
 /////////////////////////////////// RESTING ////////////////////////////////////

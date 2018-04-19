@@ -14,6 +14,7 @@
 		I.Remove(user, 1)
 
 	explosion(get_turf(user),0,0,2,0,silent=1)
+	new /datum/psy_fear/vaoe/changelingery(user)
 	for(var/mob/living/carbon/human/H in range(2,user))
 		H << "<span class='userdanger'>You are blinded by a shower of blood!</span>"
 		H.Stun(1)

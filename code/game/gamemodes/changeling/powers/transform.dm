@@ -50,6 +50,7 @@
 		return
 
 	changeling_transform(user, chosen_prof)
+	new /datum/psy_fear/vaoe/changelingery(user)
 
 	feedback_add_details("changeling_powers","TR")
 	return 1

@@ -13,6 +13,7 @@
 	user << "<span class='warning'>Our genes cry out!</span>"
 
 	user.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE)
+	new /datum/psy_fear/vaoe/changelingery(user)
 
 	feedback_add_details("changeling_powers","LF")
 	return 1

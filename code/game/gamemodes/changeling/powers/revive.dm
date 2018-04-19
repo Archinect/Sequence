@@ -27,6 +27,8 @@
 	user << "<span class='notice'>We have revived ourselves.</span>"
 	user.mind.changeling.purchasedpowers -= src
 	feedback_add_details("changeling_powers","CR")
+	new /datum/psy_fear/vaoe/changelingery(user)
+
 	return 1
 
 /obj/effect/proc_holder/changeling/revive/can_be_used_by(mob/user)

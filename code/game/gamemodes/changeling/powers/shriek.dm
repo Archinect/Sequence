@@ -26,6 +26,7 @@
 		L.break_light_tube()
 
 	feedback_add_details("changeling_powers","RS")
+	new /datum/psy_fear/haoe/changelingery(user)
 	return 1
 
 /obj/effect/proc_holder/changeling/dissonant_shriek
@@ -40,6 +41,7 @@
 		L.on = 1
 		L.break_light_tube()
 	empulse(get_turf(user), 2, 5, 1)
+	new /datum/psy_fear/haoe/changelingery(user)
 	return 1
 
 

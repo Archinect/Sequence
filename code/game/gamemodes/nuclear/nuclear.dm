@@ -38,6 +38,10 @@
 	for(var/datum/mind/synd_mind in syndicates)
 		synd_mind.assigned_role = "Syndicate"
 		synd_mind.special_role = "Syndicate"//So they actually have a special role/N
+		var/mob/living/L = synd_mind.current
+		if(istype(L))
+			psy_give_immunity(L, PSY_FEARTYPE_DEATH)
+			psy_give_resistance(L, PSY_FEARTYPE_PAIN | PSY_FEARTYPE_ABSTRACT)
 		log_game("[synd_mind.key] (ckey) has been selected as a nuclear operative")
 
 	return 1

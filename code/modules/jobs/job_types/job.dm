@@ -43,6 +43,10 @@
 
 	var/outfit = null
 
+	var/psy_vulnerabilities = PSY_FEARTYPE_ABSTRACT
+	var/psy_resistances = 0
+	var/psy_immunities = 0
+
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
 
@@ -67,6 +71,11 @@
 
 	if(!visualsOnly && announce)
 		announce(H)
+
+	//fuck logic, equip psy stats
+	psy_give_vulnerability(H,psy_vulnerabilities)
+	psy_give_resistance(H,psy_resistances)
+	psy_give_immunity(H,psy_immunities)
 
 /datum/job/proc/get_access()
 	if(!config)	//Needed for robots.

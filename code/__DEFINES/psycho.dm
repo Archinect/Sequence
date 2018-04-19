@@ -1,0 +1,27 @@
+#define PSY_FEARTYPE_ABSTRACT 1			//generic
+#define PSY_FEARTYPE_PAIN 2
+#define PSY_FEARTYPE_DEATH 4
+#define PSY_FEARTYPE_PARANORMAL 8
+#define PSY_FEARTYPE_INFINITE 16
+#define PSY_FEARTYPE_ALL ~0
+
+#define PSY_STAGE_STABLE 0
+#define PSY_STAGE_FEARS 1
+#define PSY_STAGE_SIGNS 2
+#define PSY_STAGE_HARBINGER 3
+#define PSY_STAGE_PERDITION 4
+
+#define PSY_FEARS_TRESHOLD 100			//notice the unnoticeable
+#define PSY_SIGNS_TRESHOLD 200			//see the unseen
+#define PSY_HARBINGER_TRESHOLD 400		//stare into abyss
+#define PSY_PERDITION_TRESHOLD 1000		//and it will stare back
+
+#define PSY_FEAR_VULNERABLE_COEFF 10
+#define PSY_FEAR_RESISTANT_COEFF 0.5
+#define PSY_FEAR_IMMUNE_COEFF 0.01
+#define PSY_FEAR_INSTABILITY_EFFECT(I) (0.5 + sqrt(I/PSY_PERDITION_TRESHOLD))
+
+#define PSY_FORGIVING_MOD 0.33			//psy affection regression
+#define PSY_TRIGGER_PROB 80
+#define PSY_TRIGGER_COEFF1_MOD 30
+#define PSY_TRIGGER_COEFF2_MOD 20

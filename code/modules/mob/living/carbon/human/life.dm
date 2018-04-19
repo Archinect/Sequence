@@ -30,7 +30,6 @@
 		return
 
 	if(..()) //not dead
-		psyche()
 		for(var/datum/mutation/human/HM in dna.mutations)
 			HM.on_life(src)
 

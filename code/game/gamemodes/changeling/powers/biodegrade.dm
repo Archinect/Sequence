@@ -55,6 +55,8 @@
 
 	if(used)
 		feedback_add_details("changeling_powers","BD")
+		new /datum/psy_fear/vaoe/changelingery(user)
+
 	return 1
 
 /obj/effect/proc_holder/changeling/biodegrade/proc/dissolve_handcuffs(mob/living/carbon/human/user, obj/O)

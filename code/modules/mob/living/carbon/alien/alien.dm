@@ -42,6 +42,7 @@
 	create_internal_organs()
 
 	..()
+	psy_give_immunity(src,PSY_FEARTYPE_ALL) //lol it's fun otherwise but nope
 
 /mob/living/carbon/alien/create_internal_organs()
 	internal_organs += new /obj/item/organ/brain/alien
