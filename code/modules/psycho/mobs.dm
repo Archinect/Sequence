@@ -73,7 +73,6 @@
 		horrors -= horror_image
 		src << "<span class='danger'><i>... [horror_image] ...</i></span>"
 		var/sleep_time = rand(30,60)
-		AdjustSleeping(sleep_time/10)
 		PSY.instability += rand(1,sqrt(PSY.instability))
 		sleep(sleep_time)
 		if(sleeping <= 0)
