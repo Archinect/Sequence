@@ -14,7 +14,7 @@
 		dreams -= dream_image
 		src << "<span class='notice'><i>... [dream_image] ...</i></span>"
 		sleep(rand(40,70))
-		if(paralysis <= 0)
+		if(sleeping <= 0)
 			dreaming = 0
 			return 0
 	dreaming = 0

@@ -17,6 +17,9 @@ Chief Engineer
 
 	outfit = /datum/outfit/job/ce
 
+	psy_resistances = PSY_FEARTYPE_ALL ^ (PSY_FEARTYPE_DEATH | PSY_FEARTYPE_PARANORMAL)
+	psy_immunities = PSY_FEARTYPE_INFINITE
+
 	access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels,
 			            access_external_airlocks, access_atmospherics, access_emergency_storage, access_eva,
 			            access_heads, access_construction, access_sec_doors, access_minisat,
@@ -74,6 +77,9 @@ Station Engineer
 
 	outfit = /datum/outfit/job/engineer
 
+	psy_resistances = PSY_FEARTYPE_ALL ^ (PSY_FEARTYPE_DEATH | PSY_FEARTYPE_PARANORMAL)
+	psy_immunities = PSY_FEARTYPE_INFINITE
+
 	access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels,
 									access_external_airlocks, access_construction, access_atmospherics, access_tcomsat)
 	minimal_access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels,
@@ -124,6 +130,9 @@ Atmospheric Technician
 	selection_color = "#fff5cc"
 
 	outfit = /datum/outfit/job/atmos
+
+	psy_resistances = PSY_FEARTYPE_ALL ^ (PSY_FEARTYPE_DEATH | PSY_FEARTYPE_PARANORMAL)
+	psy_immunities = PSY_FEARTYPE_INFINITE
 
 	access = list(access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels,
 									access_external_airlocks, access_construction, access_atmospherics)

@@ -48,6 +48,10 @@
 		traitors += traitor
 		traitor.special_role = traitor_name
 		traitor.restricted_roles = restricted_jobs
+		var/mob/living/L = traitor.current
+		if(istype(L))
+			psy_give_immunity(L, PSY_FEARTYPE_DEATH)
+			psy_give_resistance(L, PSY_FEARTYPE_PAIN | PSY_FEARTYPE_ABSTRACT)
 		log_game("[traitor.key] (ckey) has been selected as a [traitor_name]")
 		antag_candidates.Remove(traitor)
 

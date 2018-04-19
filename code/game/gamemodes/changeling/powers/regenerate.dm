@@ -27,6 +27,8 @@
 			C.emote("scream")
 			C.regenerate_limbs(1)
 			C.regenerate_organs()
+			new /datum/psy_fear/vaoe/changelingery(user)
+
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.restore_blood()

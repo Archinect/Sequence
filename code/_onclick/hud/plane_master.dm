@@ -17,6 +17,7 @@
 /obj/screen/plane_master/game_world
 	name = "game world plane master"
 	plane = GAME_PLANE
+	appearance_flags = PLANE_MASTER //fix for client.color thingies
 	blend_mode = BLEND_OVERLAY
 
 /obj/screen/plane_master/lighting

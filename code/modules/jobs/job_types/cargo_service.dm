@@ -14,6 +14,9 @@ Quartermaster
 
 	outfit = /datum/outfit/job/quartermaster
 
+	psy_resistances = PSY_FEARTYPE_INFINITE //no limits for greed
+	psy_immunities = PSY_FEARTYPE_INFINITE
+
 	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mining, access_mining_station, access_mineral_storeroom)
 	minimal_access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mining, access_mining_station, access_mineral_storeroom)
 
@@ -71,6 +74,9 @@ Shaft Miner
 	selection_color = "#dcba97"
 
 	outfit = /datum/outfit/job/miner
+
+	psy_resistances = PSY_FEARTYPE_DEATH | PSY_FEARTYPE_PAIN | PSY_FEARTYPE_ABSTRACT | PSY_FEARTYPE_PARANORMAL 
+	psy_immunities = PSY_FEARTYPE_DEATH | PSY_FEARTYPE_PAIN | PSY_FEARTYPE_ABSTRACT
 
 	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mining, access_mining_station, access_mineral_storeroom)
 	minimal_access = list(access_mining, access_mining_station, access_mailsorting, access_mineral_storeroom)

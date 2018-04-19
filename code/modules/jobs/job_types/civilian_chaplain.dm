@@ -15,6 +15,11 @@ Chaplain
 
 	outfit = /datum/outfit/job/chaplain
 
+	//exorcism 101
+	psy_resistances = PSY_FEARTYPE_DEATH | PSY_FEARTYPE_PARANORMAL 
+	psy_immunities = PSY_FEARTYPE_DEATH | PSY_FEARTYPE_PARANORMAL
+
+
 	access = list(access_morgue, access_chapel_office, access_crematorium, access_theatre)
 	minimal_access = list(access_morgue, access_chapel_office, access_crematorium, access_theatre)
 

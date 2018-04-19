@@ -50,6 +50,8 @@
 		user.emote("scream")
 	var/obj/item/W = new weapon_type(user, silent)
 	user.put_in_hands(W)
+	new /datum/psy_fear/vaoe/changelingery(user)
+
 	if(!silent)
 		playsound(user, 'sound/effects/blobattack.ogg', 30, 1)
 	return W
@@ -122,6 +124,8 @@
 
 	user.equip_to_slot_if_possible(new suit_type(user), slot_wear_suit, 1, 1, 1)
 	user.equip_to_slot_if_possible(new helmet_type(user), slot_head, 1, 1, 1)
+
+	new /datum/psy_fear/vaoe/changelingery(user)
 
 	var/datum/changeling/changeling = user.mind.changeling
 	changeling.chem_recharge_slowdown += recharge_slowdown

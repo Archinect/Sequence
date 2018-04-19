@@ -11,11 +11,34 @@
 
 	var/list/consequence_cooldowns = list() //for targeted consequences
 
+/proc/psy_give_vulnerability(var/mob/living/L,mask)
+	if(!istype(L))
+		return
+	if(!L.PSY)
+		L.PSY = new()
+	L.PSY.vulnerability |= mask
+
+/proc/psy_give_resistance(var/mob/living/L,mask)
+	if(!istype(L))
+		return
+	if(!L.PSY)
+		L.PSY = new()
+	L.PSY.resistance |= mask
+
+/proc/psy_give_immunity(var/mob/living/L,mask)
+	if(!istype(L))
+		return
+	if(!L.PSY)
+		L.PSY = new()
+	L.PSY.immunity |= mask
+
+
 /datum/psy_fear
 	var/psy_type = PSY_FEARTYPE_ABSTRACT
 	var/required_stage = 0
 	var/power = 5 //how likely it is to affect
 	var/impact = 10 //how much will it change
+	var/indication_prob = 10
 	var/affect_message = "You feel a sudden surge of primal fear"
 
 /datum/psy_consequence
@@ -60,6 +83,7 @@ var/list/utility_consequences = list(
 var/list/psy_signs_suscepts = list()		//stores all who passed signs treshold
 var/list/psy_harbinger_suscepts = list()	//stores all who passed harbinger treshold
 
+var/list/psy_signs = list()
 
 /datum/psy_state/New(mob/holder)
 	src.holder = holder
@@ -131,10 +155,19 @@ var/list/psy_harbinger_suscepts = list()	//stores all who passed harbinger tresh
 		psy_harbinger_suscepts |= holder
 	else
 		psy_harbinger_suscepts -= holder
+	handle_signs()//update visibility
+
+/datum/psy_state/proc/handle_signs()
+	if(!holder || !holder.client)
+		return
+	if(stage>=PSY_STAGE_SIGNS)
+		holder.client.images += psy_signs //see
+	else
+		holder.client.images -= psy_signs //don't see
 
 
 /datum/psy_state/proc/handle_consequences()
-	accumulated_instability = sqrt(instability+accumulated_instability)
+	accumulated_instability = max(0,min(accumulated_instability+sqrt(instability),instability))
 	var/degrade_coeff1 = 0
 	var/degrade_coeff2 = 0
 	var/list/chosen_list
@@ -159,7 +192,6 @@ var/list/psy_harbinger_suscepts = list()	//stores all who passed harbinger tresh
 		else
 			degrade_coeff2 += 1
 
-
 /datum/psy_fear/proc/trigger(mob/living/L)
 	if(!L.PSY)
 		return
@@ -183,7 +215,8 @@ var/list/psy_harbinger_suscepts = list()	//stores all who passed harbinger tresh
 	var/affecting_impact = PSY_FEAR_INSTABILITY_EFFECT(PSY.instability)*impact
 	PSY.instability += affecting_impact
 	if(prob(affecting_impact))
-		PSY.holder << "<span class='danger'>[affect_message]</span>"
+		if(prob(indication_prob))
+			PSY.holder << "<span class='danger'>[affect_message]</span>"
 		return 1
 	return
 
@@ -228,46 +261,49 @@ var/list/psy_harbinger_suscepts = list()	//stores all who passed harbinger tresh
 /datum/psy_consequence/targeted/cooldown_trigger(datum/psy_state/PSY)
 	PSY.consequence_cooldowns[cooldown_id] = world.time + cooldown
 
-/datum/psy_consequence/targeted/sound //for one at a time
-	required_stage = PSY_STAGE_FEARS
-	acc_price = 5
-	prob_mod = 5
-	cooldown = 100
-	cooldown_id = "hallu_sound"
+/atom
+	var/PSYcon
+	var/PSYcon_state
+
+	var/PSYname
+	var/PSYdesc
+	var/PSYcolor
+	var/PSYalpha
+	var/PSYappearance
+	var/PSYlayer
+	var/PSYplane //OMFG
 	
-	var/sound_list = list('sound/effects/ghost.ogg', 'sound/effects/ghost2.ogg', 'sound/effects/Heart Beat.ogg', 'sound/effects/screech.ogg',\
-		'sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/behind_you2.ogg', 'sound/hallucinations/far_noise.ogg', 'sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg',\
-		'sound/hallucinations/growl3.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg', 'sound/hallucinations/i_see_you1.ogg', 'sound/hallucinations/i_see_you2.ogg',\
-		'sound/hallucinations/look_up1.ogg', 'sound/hallucinations/look_up2.ogg', 'sound/hallucinations/over_here1.ogg', 'sound/hallucinations/over_here2.ogg', 'sound/hallucinations/over_here3.ogg',\
-		'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg',
-		'sound/effects/adminhelp.ogg')
-	var/max_dist = 10
-	var/falloff_fraction = 0.66
+	var/image/PSYmage
 
-/datum/psy_consequence/targeted/sound/trigger(datum/psy_state/PSY)
+/atom/New()
 	. = ..()
-	var/sound/S = sound(pick(sound_list))
-	S.x = rand(-max_dist,max_dist)
-	S.y = rand(-max_dist,max_dist)
-	S.falloff = max_dist*falloff_fraction
-	PSY.holder << S
+	add_psymage()
 
+/atom/proc/add_psymage()
+	if(PSYmage)
+		remove_psymage()
+	if(PSYcon)
+		PSYmage = image(DEFAULTPICK(PSYcon,PSYcon),src,DEFAULTPICK(PSYcon_state,PSYcon_state))
+		PSYmage.override = 1
+		//it's totally ok if those below are null
+		PSYmage.name = PSYname
+		PSYmage.desc = PSYdesc
+		PSYmage.color = PSYcolor
+		PSYmage.alpha = PSYalpha
+		PSYmage.appearance_flags = PSYappearance
+		PSYmage.layer = PSYlayer
+		PSYmage.plane = PSYplane
+		psy_signs += PSYmage
+		for(var/mob/living/L in psy_signs_suscepts)
+			if(L.client)
+				L.client.images += PSYmage
 
-/datum/psy_consequence/mass/sound
-	required_stage = PSY_STAGE_SIGNS
-	acc_price = 15
-	cooldown = 150
+/atom/proc/remove_psymage()
+	psy_signs -= PSYmage
+	qdel(PSYmage)
 
-	var/sound_list = list('sound/spookoween/scary_horn3.ogg','sound/spookoween/ghost_whisper.ogg',
-		'sound/spookoween/ghosty_wind.ogg','sound/spookoween/insane_low_laugh.ogg','sound/spookoween/scary_clown_appear.ogg',
-		'sound/creatures/legion_spawn.ogg','sound/creatures/legion_death_far.ogg','sound/creatures/legion_death.ogg')
-	var/max_dist = 50
-	var/falloff_fraction = 0.33
-
-/datum/psy_consequence/mass/sound/trigger(datum/psy_state/PSY)
+/client/New() //logged in
 	. = ..()
-	var/sound/S = sound(pick(sound_list))
-	S.x = rand(-max_dist,max_dist)
-	S.y = rand(-max_dist,max_dist)
-	S.falloff = max_dist*falloff_fraction
-	psy_signs_suscepts << S
+	var/mob/living/L = mob
+	if(istype(L) && L.PSY)
+		L.PSY.handle_signs() //show them ~~da way~~ overriding images

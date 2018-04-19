@@ -25,6 +25,11 @@
 	modePlayer += wizard
 	wizard.assigned_role = "Wizard"
 	wizard.special_role = "Wizard"
+	var/mob/living/L = wizard.current
+	if(istype(L))
+		psy_give_immunity(L, PSY_FEARTYPE_PARANORMAL | PSY_FEARTYPE_INFINITE)
+		psy_give_resistance(L, PSY_FEARTYPE_PAIN | PSY_FEARTYPE_DEATH)
+		psy_give_vulnerability(L, PSY_FEARTYPE_ABSTRACT)
 	if(wizardstart.len == 0)
 		wizard.current << "<span class='boldannounce'>A starting location for you could not be found, please report this bug!</span>"
 		return 0

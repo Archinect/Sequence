@@ -37,10 +37,12 @@
 				user << "<span class='notice'>This creature is compatible. We must hold still...</span>"
 			if(2)
 				user.visible_message("<span class='warning'>[user] extends a proboscis!</span>", "<span class='notice'>We extend a proboscis.</span>")
+				new /datum/psy_fear/vaoe/changelingery(user)
 			if(3)
 				user.visible_message("<span class='danger'>[user] stabs [target] with the proboscis!</span>", "<span class='notice'>We stab [target] with the proboscis.</span>")
 				target << "<span class='userdanger'>You feel a sharp stabbing pain!</span>"
 				target.take_overall_damage(40)
+				new /datum/psy_fear/vaoe/changelingery(user)
 
 		feedback_add_details("changeling_powers","A[stage]")
 		if(!do_mob(user, target, 150))
@@ -50,6 +52,7 @@
 
 	user.visible_message("<span class='danger'>[user] sucks the fluids from [target]!</span>", "<span class='notice'>We have absorbed [target].</span>")
 	target << "<span class='userdanger'>You are absorbed by the changeling!</span>"
+	new /datum/psy_fear/vaoe/changelingery(user)
 
 	if(!changeling.has_dna(target.dna))
 		changeling.add_new_profile(target, user)

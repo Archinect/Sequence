@@ -1,4 +1,3 @@
-//here be objects with fears
 /obj/structure/closet/debug_pandora
 	name = "pandora closet"
 	desc = "You must be insane if you want to open it. Or at least you'll surely get"

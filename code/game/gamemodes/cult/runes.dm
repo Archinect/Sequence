@@ -141,6 +141,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			var/mob/living/L = M
 			L.say(invocation)
 	do_invoke_glow()
+	new /datum/psy_fear/vaoe/blood_cultery(src)
 
 /obj/effect/rune/proc/do_invoke_glow()
 	var/oldtransform = transform

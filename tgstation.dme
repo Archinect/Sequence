@@ -1838,6 +1838,7 @@
 #include "code\modules\psycho\objects.dm"
 #include "code\modules\psycho\psycho.dm"
 #include "code\modules\psycho\reagents.dm"
+#include "code\modules\psycho\turfs.dm"
 #include "code\modules\reagents\chem_splash.dm"
 #include "code\modules\reagents\reagent_containers.dm"
 #include "code\modules\reagents\reagent_dispenser.dm"

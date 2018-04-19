@@ -23,6 +23,11 @@ Head of Security
 
 	outfit = /datum/outfit/job/hos
 
+	//T-800
+	psy_resistances = PSY_FEARTYPE_ALL
+	psy_immunities = PSY_FEARTYPE_DEATH | PSY_FEARTYPE_PAIN | PSY_FEARTYPE_ABSTRACT
+
+
 	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_weapons,
 			            access_forensics_lockers, access_morgue, access_maint_tunnels, access_all_personal_lockers,
 			            access_research, access_engine, access_mining, access_medical, access_construction, access_mailsorting,
@@ -74,6 +79,9 @@ Warden
 
 	outfit = /datum/outfit/job/warden
 
+	psy_resistances = PSY_FEARTYPE_DEATH | PSY_FEARTYPE_PAIN | PSY_FEARTYPE_ABSTRACT 
+	psy_immunities = PSY_FEARTYPE_DEATH | PSY_FEARTYPE_PAIN | PSY_FEARTYPE_ABSTRACT
+
 	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_maint_tunnels, access_morgue, access_weapons, access_forensics_lockers)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_weapons) //See /datum/job/warden/get_access()
 
@@ -124,6 +132,9 @@ Detective
 
 	outfit = /datum/outfit/job/detective
 
+	psy_resistances = PSY_FEARTYPE_DEATH | PSY_FEARTYPE_PAIN | PSY_FEARTYPE_ABSTRACT 
+	psy_immunities = PSY_FEARTYPE_DEATH | PSY_FEARTYPE_PAIN | PSY_FEARTYPE_ABSTRACT
+
 	access = list(access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court, access_brig, access_weapons)
 	minimal_access = list(access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court, access_brig, access_weapons)
 
@@ -171,6 +182,9 @@ Security Officer
 	minimal_player_age = 7
 
 	outfit = /datum/outfit/job/security
+
+	psy_resistances = PSY_FEARTYPE_DEATH | PSY_FEARTYPE_PAIN | PSY_FEARTYPE_ABSTRACT 
+	psy_immunities = PSY_FEARTYPE_DEATH | PSY_FEARTYPE_PAIN | PSY_FEARTYPE_ABSTRACT
 
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons, access_forensics_lockers)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_weapons) //But see /datum/job/warden/get_access()

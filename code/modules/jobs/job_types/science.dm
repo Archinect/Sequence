@@ -17,6 +17,11 @@ Research Director
 
 	outfit = /datum/outfit/job/rd
 
+	psy_vulnerabilities = PSY_FEARTYPE_PAIN
+	//scientists usually see some serious shit
+	psy_resistances = PSY_FEARTYPE_PARANORMAL | PSY_FEARTYPE_DEATH | PSY_FEARTYPE_ABSTRACT
+	psy_immunities = PSY_FEARTYPE_PARANORMAL | PSY_FEARTYPE_ABSTRACT
+
 	access = list(access_rd, access_heads, access_tox, access_genetics, access_morgue,
 			            access_tox_storage, access_teleporter, access_sec_doors,
 			            access_research, access_robotics, access_xenobiology, access_ai_upload,
@@ -70,6 +75,10 @@ Scientist
 
 	outfit = /datum/outfit/job/scientist
 
+	psy_vulnerabilities = PSY_FEARTYPE_PAIN
+	psy_resistances = PSY_FEARTYPE_PARANORMAL | PSY_FEARTYPE_DEATH | PSY_FEARTYPE_ABSTRACT
+	psy_immunities = PSY_FEARTYPE_PARANORMAL | PSY_FEARTYPE_ABSTRACT
+
 	access = list(access_robotics, access_tox, access_tox_storage, access_research, access_xenobiology, access_mineral_storeroom, access_tech_storage, access_genetics)
 	minimal_access = list(access_tox, access_tox_storage, access_research, access_xenobiology, access_mineral_storeroom)
 
@@ -101,6 +110,9 @@ Roboticist
 	selection_color = "#ffeeff"
 
 	outfit = /datum/outfit/job/roboticist
+
+	psy_resistances = PSY_FEARTYPE_PARANORMAL | PSY_FEARTYPE_DEATH | PSY_FEARTYPE_ABSTRACT | PSY_FEARTYPE_PAIN
+	psy_immunities = PSY_FEARTYPE_PARANORMAL | PSY_FEARTYPE_ABSTRACT
 
 	access = list(access_robotics, access_tox, access_tox_storage, access_tech_storage, access_morgue, access_research, access_mineral_storeroom, access_xenobiology, access_genetics)
 	minimal_access = list(access_robotics, access_tech_storage, access_morgue, access_research, access_mineral_storeroom)
